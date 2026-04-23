@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before You Design — UI Mockup & Color System</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; }
+  .doc-header { max-width: 860px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+
+  .app { background: #f8f8f6; border-radius: 12px; overflow: hidden; border: 1px solid #e4e2da; max-width: 860px; margin: 0 auto; }
+
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .app-logo { font-family: 'Poppins', Arial, sans-serif; font-size: 15px; font-weight: 600; color: #141413; }
+  .app-logo span { color: #d97757; }
+  .app-progress { display: flex; align-items: center; gap: 6px; }
+  .prog-step { width: 24px; height: 3px; border-radius: 2px; background: #e4e2da; }
+  .prog-step.done { background: #d97757; }
+  .prog-step.active { background: #eaac93; }
+  .step-label { font-size: 10px; color: #767370; margin-left: 8px; letter-spacing: 0.05em; }
+
+  .stage { padding: 28px 24px; border-bottom: 1px solid #e4e2da; }
+  .stage:last-child { border-bottom: none; }
+  .stage.alt { background: #ffffff; }
+
+  .stage-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; margin-bottom: 10px; }
+  .stage-tag::before { content: ''; width: 12px; height: 1px; background: #d97757; display: block; }
+
+  .stage-title { font-family: 'Lora', Georgia, serif; font-size: 20px; font-weight: 600; color: #141413; margin-bottom: 6px; line-height: 1.2; }
+  .stage-desc { font-family: 'Lora', Georgia, serif; font-size: 13px; color: #767370; line-height: 1.7; margin-bottom: 18px; max-width: 480px; }
+
+  .url-wrap { display: flex; margin-bottom: 10px; }
+  .url-input { flex: 1; background: #fff; border: 1px solid #e4e2da; border-right: none; border-radius: 6px 0 0 6px; padding: 11px 14px; font-size: 13px; color: #141413; outline: none; font-family: 'Poppins', Arial, sans-serif; }
+  .url-input::placeholder { color: #b0aea5; }
+  .url-btn { background: #d97757; color: #f8f8f6; border: none; padding: 11px 18px; font-size: 13px; font-weight: 600; border-radius: 0 6px 6px 0; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+  .paste-area { width: 100%; background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 11px 14px; font-family: 'Lora', Georgia, serif; font-size: 13px; color: #141413; resize: none; outline: none; line-height: 1.6; }
+  .paste-area::placeholder { color: #b0aea5; }
+  .hint { font-size: 10px; color: #767370; margin-top: 8px; }
+
+  .stream { display: flex; align-items: center; flex-wrap: wrap; background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 14px 16px; margin-bottom: 10px; }
+  .stream-dot { width: 7px; height: 7px; border-radius: 50%; background: #d97757; margin-right: 12px; flex-shrink: 0; }
+  .s-item { font-size: 11px; color: #767370; }
+  .s-item.active { color: #141413; font-weight: 500; }
+  .s-item.done { color: #788c5d; }
+  .s-sep { font-size: 10px; color: #e4e2da; padding: 0 8px; }
+
+  .q-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .q-card { background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 14px; }
+  .q-opt { background: #f8f8f6; border: 1px dashed #e4e2da; border-radius: 6px; padding: 12px 14px; }
+  .q-lbl { font-size: 9px; color: #767370; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 7px; display: flex; align-items: center; gap: 5px; }
+  .q-lbl::before { content: ''; width: 8px; height: 1px; background: #d97757; display: block; }
+  .q-text { font-family: 'Lora', Georgia, serif; font-size: 13px; color: #141413; line-height: 1.5; margin-bottom: 10px; }
+  .q-input { width: 100%; background: #f8f8f6; border: 1px solid #e4e2da; border-radius: 4px; padding: 8px 11px; font-size: 12px; color: #141413; outline: none; font-family: 'Poppins', Arial, sans-serif; }
+  .q-input::placeholder { color: #b0aea5; }
+  .q-skip { font-size: 10px; color: #767370; margin-top: 6px; }
+
+  .readout { display: flex; flex-direction: column; gap: 6px; }
+  .r-row { background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 13px 15px; display: flex; gap: 14px; }
+  .r-row.flagged { border-color: #eaac93; background: #fffcfa; }
+  .r-lbl { font-size: 9px; color: #767370; letter-spacing: 0.12em; text-transform: uppercase; min-width: 88px; padding-top: 2px; }
+  .r-content { flex: 1; }
+  .r-insight { font-family: 'Lora', Georgia, serif; font-size: 13px; color: #141413; line-height: 1.5; margin-bottom: 3px; }
+  .r-detail { font-family: 'Lora', Georgia, serif; font-size: 12px; color: #767370; line-height: 1.5; }
+  .r-flag { font-size: 10px; color: #d97757; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+  .flag-dot { width: 5px; height: 5px; border-radius: 50%; background: #d97757; flex-shrink: 0; }
+
+  .actions { display: flex; gap: 10px; align-items: center; margin-top: 16px; flex-wrap: wrap; }
+  .btn-p { background: #d97757; color: #f8f8f6; border: none; padding: 11px 22px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+  .btn-s { background: transparent; color: #141413; border: 1px solid #e4e2da; padding: 11px 18px; font-size: 13px; border-radius: 6px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+  .btn-note { font-size: 10px; color: #767370; }
+
+  .out-box { background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 18px; margin-bottom: 10px; }
+  .out-lbl { font-size: 9px; color: #767370; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .out-lbl::before { content: ''; width: 14px; height: 2px; background: #d97757; display: block; }
+  .out-text { font-size: 11px; color: #767370; line-height: 1.9; margin-bottom: 14px; font-family: 'Poppins', Arial, sans-serif; }
+  .out-text .hi { color: #141413; text-decoration: underline; text-decoration-color: #d97757; text-underline-offset: 3px; }
+  .copy-btn { background: #d97757; color: #f8f8f6; border: none; padding: 10px 20px; font-size: 12px; font-weight: 600; border-radius: 6px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+
+  .wl-lbl { font-size: 9px; color: #767370; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .wl-box { background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+  .wl-av { width: 34px; height: 34px; border-radius: 50%; background: #e4e2da; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #141413; flex-shrink: 0; }
+  .wl-name { font-size: 13px; font-weight: 600; color: #141413; margin-bottom: 2px; }
+  .wl-tag { font-family: 'Lora', Georgia, serif; font-size: 12px; color: #767370; }
+  .wl-cta { margin-left: auto; background: transparent; color: #d97757; border: 1px solid #d97757; padding: 8px 14px; font-size: 12px; font-weight: 600; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: 'Poppins', Arial, sans-serif; }
+
+  .palette-section { background: #fff; border-top: 2px solid #e4e2da; padding: 24px; }
+  .palette-title { font-size: 11px; font-weight: 600; color: #141413; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+  .palette-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+  .pc { display: flex; flex-direction: column; gap: 4px; }
+  .pc-sw { height: 32px; border-radius: 5px; }
+  .pc-name { font-size: 10px; font-weight: 500; color: #141413; }
+  .pc-hex { font-size: 10px; color: #767370; font-family: monospace; }
+  .pc-ratio { font-size: 10px; color: #788c5d; font-weight: 500; }
+  .pc-rule { font-size: 10px; color: #767370; }
+
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rule-card { padding: 12px 14px; border-radius: 6px; }
+  .rule-yes { background: #f2f7ec; border: 1px solid #c8d9b0; }
+  .rule-no { background: #fff8f5; border: 1px solid #eaac93; }
+  .rule-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .rule-yes .rule-label { color: #788c5d; }
+  .rule-no .rule-label { color: #d97757; }
+  .rule-item { font-size: 11px; color: #141413; line-height: 1.7; }
+
+  .font-section { border-top: 1px solid #e4e2da; padding: 20px 24px; background: #f8f8f6; }
+  .font-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .font-card { background: #fff; border: 1px solid #e4e2da; border-radius: 6px; padding: 14px; }
+  .font-label { font-size: 9px; color: #767370; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .font-specimen-h { font-family: 'Lora', Georgia, serif; font-size: 20px; font-weight: 600; color: #141413; margin-bottom: 4px; }
+  .font-specimen-h em { font-style: italic; font-weight: 400; color: #d97757; }
+  .font-specimen-b { font-family: 'Poppins', Arial, sans-serif; font-size: 13px; color: #767370; line-height: 1.6; margin-bottom: 4px; }
+  .font-name { font-size: 10px; color: #b0aea5; font-family: monospace; }
+
+  .doc-footer { max-width: 860px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-title">Before You Design — UI Mockup & Color System</div>
+  <div class="doc-meta">PRD v1.6 · April 2026 Hackathon · byd-color-system v1.0</div>
+</div>
+
+<div class="app">
+
+  <div class="app-header">
+    <div class="app-logo">Before You <span>Design</span></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="app-progress">
+        <div class="prog-step done"></div>
+        <div class="prog-step done"></div>
+        <div class="prog-step active"></div>
+        <div class="prog-step"></div>
+        <div class="prog-step"></div>
+        <div class="prog-step"></div>
+        <span class="step-label">Step 3 of 6</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-tag">Stage 0 — Input</div>
+    <div class="stage-title">Paste what represents your business</div>
+    <div class="stage-desc">A URL is enough to start. Add more if you have it — social captions, a bio, a blog post. The more context, the sharper your readout.</div>
+    <div class="url-wrap">
+      <input class="url-input" type="text" placeholder="https://yourbusiness.com" />
+      <button class="url-btn">Analyze →</button>
+    </div>
+    <textarea class="paste-area" rows="3" placeholder="Optional — paste social captions, a bio, blog posts, anything that represents you..."></textarea>
+    <div class="hint">No login required. Nothing is stored. One URL or any text is enough.</div>
+  </div>
+
+  <div class="stage alt">
+    <div class="stage-tag">Stage 1 — Analysis</div>
+    <div class="stage-title">Reading your presence...</div>
+    <div class="stream">
+      <div class="stream-dot"></div>
+      <span class="s-item done">Reading your website</span>
+      <span class="s-sep">·</span>
+      <span class="s-item active">Finding your voice and positioning</span>
+      <span class="s-sep">·</span>
+      <span class="s-item">Checking for contradictions</span>
+      <span class="s-sep">·</span>
+      <span class="s-item">Identifying gaps</span>
+    </div>
+    <div class="hint">This takes about 20 seconds. Hang tight.</div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-tag">Stage 2 — What's changing</div>
+    <div class="stage-title">Tell us what's shifting</div>
+    <div class="stage-desc">Two quick questions. A sentence each is plenty.</div>
+    <div class="q-grid">
+      <div class="q-card">
+        <div class="q-lbl">Screen 1</div>
+        <div class="q-text">Why a new site, why now? Strategic change or aesthetic refresh?</div>
+        <input class="q-input" type="text" placeholder="Your answer..." />
+      </div>
+      <div class="q-card">
+        <div class="q-lbl">Screen 2</div>
+        <div class="q-text">What should someone feel or do when they land on your new site?</div>
+        <input class="q-input" type="text" placeholder="Your answer..." />
+      </div>
+    </div>
+    <div class="q-opt">
+      <div class="q-lbl">Optional — skip anytime</div>
+      <div class="q-text" style="font-size:12px;margin-bottom:8px;">Anything about your current positioning you want to move away from?</div>
+      <input class="q-input" type="text" placeholder="Skip this or share anything..." />
+      <div class="q-skip">Skipping will not block your readout.</div>
+    </div>
+  </div>
+
+  <div class="stage alt">
+    <div class="stage-tag">Stage 3 — Strategic readout</div>
+    <div class="stage-title">Here's what we found</div>
+    <div class="stage-desc">Based on your site and answers. Review, then confirm or edit.</div>
+    <div class="readout">
+      <div class="r-row">
+        <div class="r-lbl">USP</div>
+        <div class="r-content">
+          <div class="r-insight">You help service businesses get found and chosen — but your site leads with process, not outcomes.</div>
+          <div class="r-detail">Your strongest proof is buried in case studies. Lead with what clients actually get.</div>
+        </div>
+      </div>
+      <div class="r-row">
+        <div class="r-lbl">Niche</div>
+        <div class="r-content">
+          <div class="r-insight">Female founders, service-based, $50k–$250k revenue range.</div>
+          <div class="r-detail">Clear and specific. Don't dilute it on the new site.</div>
+        </div>
+      </div>
+      <div class="r-row flagged">
+        <div class="r-lbl">Offer structure</div>
+        <div class="r-content">
+          <div class="r-insight">Three services listed with no clear entry point or logical progression.</div>
+          <div class="r-detail">A visitor can't tell where to start. The offer ladder needs a front door.</div>
+          <div class="r-flag"><div class="flag-dot"></div>Contradiction flagged — needs attention</div>
+        </div>
+      </div>
+      <div class="r-row flagged">
+        <div class="r-lbl">Origin story</div>
+        <div class="r-content">
+          <div class="r-insight">Not enough content to build your About page story from existing material.</div>
+          <div class="r-detail">We'll ask one targeted question before generating your output prompt.</div>
+          <div class="r-flag"><div class="flag-dot"></div>One follow-up needed</div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn-p">Looks right, continue →</button>
+      <button class="btn-s">Edit sections</button>
+      <span class="btn-note">Editing is optional. One click continues.</span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-tag">Stage 6 — Output</div>
+    <div class="stage-title">Your strategy is ready</div>
+    <div class="stage-desc">Paste this into Claude Design. Everything it needs to build a site that converts, not just looks good.</div>
+    <div class="out-box">
+      <div class="out-lbl">Claude Design–ready prompt</div>
+      <div class="out-text">Build a website for <span class="hi">a service-based business</span> that positions them as the <span class="hi">validated strategic choice</span> for female founders earning $50k–$250k. Lead with outcomes, not process. Voice is <span class="hi">warm, direct, and authoritative</span>. The offer ladder needs a clear front door — lead with the entry-point service...</div>
+      <button class="copy-btn">Copy to clipboard</button>
+    </div>
+    <div class="wl-lbl">Brought to you by</div>
+    <div class="wl-box">
+      <div class="wl-av">DW</div>
+      <div>
+        <div class="wl-name">Diane Whiddon — Brand Strategist</div>
+        <div class="wl-tag">Ready to turn this strategy into a real site? Let's talk.</div>
+      </div>
+      <button class="wl-cta">Book a call →</button>
+    </div>
+  </div>
+
+  <div class="font-section">
+    <div class="palette-title" style="margin-bottom:14px;">Typography</div>
+    <div class="font-grid">
+      <div class="font-card">
+        <div class="font-label">Display / Headlines — Lora</div>
+        <div class="font-specimen-h">Stop building on <em>vibes.</em></div>
+        <div class="font-name">Lora 600 · italic 400 · Georgia fallback</div>
+      </div>
+      <div class="font-card">
+        <div class="font-label">UI / Body / Labels — Poppins</div>
+        <div class="font-specimen-b">A short description of what this tool does and why it matters to the people who use it every day.</div>
+        <div class="font-name">Poppins 400/500/600 · Arial fallback</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="palette-section">
+    <div class="palette-title">Color system — byd-color-system v1.0</div>
+    <div class="palette-grid">
+      <div class="pc">
+        <div class="pc-sw" style="background:#f8f8f6;border:1px solid #e4e2da;"></div>
+        <div class="pc-name">App background</div>
+        <div class="pc-hex">#f8f8f6</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#ffffff;border:1px solid #e4e2da;"></div>
+        <div class="pc-name">Cards / alt bg</div>
+        <div class="pc-hex">#ffffff</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#141413;"></div>
+        <div class="pc-name">Primary text</div>
+        <div class="pc-hex">#141413</div>
+        <div class="pc-ratio">16:1 AAA ✓</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#767370;"></div>
+        <div class="pc-name">Muted text</div>
+        <div class="pc-hex">#767370</div>
+        <div class="pc-ratio">4.6:1 AA ✓</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#b0aea5;border:1px solid #e4e2da;"></div>
+        <div class="pc-name">Decorative only</div>
+        <div class="pc-hex">#b0aea5</div>
+        <div class="pc-rule">borders · placeholders</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#e4e2da;"></div>
+        <div class="pc-name">Borders / dividers</div>
+        <div class="pc-hex">#e4e2da</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#d97757;"></div>
+        <div class="pc-name">Accent — orange</div>
+        <div class="pc-hex">#d97757</div>
+        <div class="pc-rule">buttons · dots · 24px+</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#eaac93;"></div>
+        <div class="pc-name">Accent light</div>
+        <div class="pc-hex">#eaac93</div>
+        <div class="pc-rule">progress · flagged borders</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#fffcfa;border:1px solid #eaac93;"></div>
+        <div class="pc-name">Flagged bg</div>
+        <div class="pc-hex">#fffcfa</div>
+        <div class="pc-rule">contradiction cards</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#788c5d;"></div>
+        <div class="pc-name">Success / done</div>
+        <div class="pc-hex">#788c5d</div>
+        <div class="pc-ratio">4.5:1 AA ✓</div>
+      </div>
+      <div class="pc">
+        <div class="pc-sw" style="background:#f2f7ec;border:1px solid #c8d9b0;"></div>
+        <div class="pc-name">Success bg</div>
+        <div class="pc-hex">#f2f7ec</div>
+        <div class="pc-rule">done state cards</div>
+      </div>
+    </div>
+
+    <div class="rules-grid">
+      <div class="rule-card rule-yes">
+        <div class="rule-label">Accent orange — use for</div>
+        <div class="rule-item">
+          · CTA buttons (light text on orange)<br>
+          · Decorative dots and lines<br>
+          · Border-left highlights on cards<br>
+          · Underline accents on key text<br>
+          · Progress bar fill<br>
+          · Display text 24px or larger<br>
+          · The line/dash before a label
+        </div>
+      </div>
+      <div class="rule-card rule-no">
+        <div class="rule-label">Accent orange — never use for</div>
+        <div class="rule-item">
+          · Body text at any size<br>
+          · Labels or eyebrows under 24px<br>
+          · Step numbers or metadata<br>
+          · Any text where contrast is needed<br>
+          · White text on orange buttons<br>
+          · Backgrounds behind dark text
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>byd-color-system v1.0 · Approved for build Friday April 24</span>
+</div>
+
+</body>
+</html>

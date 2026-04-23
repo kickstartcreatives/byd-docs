@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Before You Design — User Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; color: #141413; }
+
+  .doc-header { max-width: 820px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+
+  .flow { max-width: 820px; margin: 0 auto; background: #f8f8f6; border-radius: 12px; border: 1px solid #e4e2da; overflow: hidden; }
+
+  .legend { display: flex; gap: 20px; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #fff; flex-wrap: wrap; }
+  .leg { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #767370; }
+  .leg-sw { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+  .stage-row { display: flex; gap: 0; border-bottom: 1px solid #e4e2da; }
+  .stage-row:last-child { border-bottom: none; }
+
+  .stage-meta { width: 140px; flex-shrink: 0; padding: 20px 16px; border-right: 1px solid #e4e2da; display: flex; flex-direction: column; gap: 5px; justify-content: flex-start; }
+  .stage-badge { display: inline-block; font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; }
+  .badge-user { background: #fff3ee; color: #d97757; border: 1px solid #eaac93; }
+  .badge-silent { background: #f2f7ec; color: #788c5d; border: 1px solid #c8d9b0; }
+  .stage-time { font-size: 10px; color: #767370; }
+
+  .stage-card { flex: 1; padding: 20px 22px; }
+  .card-user { background: #ffffff; }
+  .card-silent { background: #f8f8f6; }
+
+  .card-title { font-family: 'Lora', Georgia, serif; font-size: 15px; font-weight: 600; color: #141413; margin-bottom: 5px; }
+  .card-desc { font-size: 12px; color: #767370; line-height: 1.6; margin-bottom: 12px; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag { font-size: 11px; color: #767370; padding: 3px 10px; border-radius: 4px; background: #f8f8f6; border: 1px solid #e4e2da; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .inner { padding: 10px 12px; border-radius: 5px; background: #fff; border: 1px solid #e4e2da; font-size: 11px; color: #767370; line-height: 1.5; }
+  .card-silent .inner { background: #fff; }
+  .inner-lbl { font-size: 9px; color: #767370; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 5px; }
+  .inner-lbl::before { content: ''; width: 8px; height: 1px; background: #d97757; display: block; }
+  .inner-title { font-size: 12px; color: #141413; font-weight: 500; margin-bottom: 3px; }
+
+  .stream { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+  .s-step { font-size: 11px; color: #767370; padding: 4px 10px; background: #fff; border: 1px solid #e4e2da; border-radius: 4px; }
+  .s-arrow { font-size: 10px; color: #e4e2da; }
+
+  .decision { margin-top: 10px; padding: 10px 14px; border-radius: 5px; background: #fffcfa; border: 1px dashed #eaac93; font-size: 11px; color: #141413; line-height: 1.6; }
+  .decision-lbl { font-size: 9px; color: #d97757; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
+
+  .optional { margin-top: 10px; padding: 10px 14px; border-radius: 5px; background: #f8f8f6; border: 1px dashed #e4e2da; font-size: 11px; color: #767370; line-height: 1.6; }
+  .optional-lbl { font-size: 9px; color: #b0aea5; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
+
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .path-lean { padding: 12px 14px; border-radius: 5px; background: #fff3ee; border: 1px solid #eaac93; font-size: 11px; color: #141413; }
+  .path-depth { padding: 12px 14px; border-radius: 5px; background: #fff; border: 1px solid #e4e2da; font-size: 11px; color: #767370; }
+  .path-lbl { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+  .path-lean .path-lbl { color: #d97757; }
+  .path-depth .path-lbl { color: #b0aea5; }
+  .path-title { font-weight: 600; font-size: 12px; margin-bottom: 3px; color: #141413; }
+
+  .connector { display: flex; align-items: center; justify-content: center; padding: 8px 0; gap: 6px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .conn-line { width: 1px; height: 16px; background: #e4e2da; }
+  .conn-label { font-size: 10px; color: #b0aea5; }
+  .conn-arrow { font-size: 12px; color: #d97757; }
+
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .pill { font-size: 11px; color: #141413; padding: 4px 10px; border-radius: 4px; background: #fff; border: 1px solid #e4e2da; }
+
+  .budget { background: #fff; border-top: 2px solid #e4e2da; padding: 18px 24px; }
+  .budget-title { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #767370; margin-bottom: 12px; }
+  .budget-row { display: flex; align-items: flex-end; gap: 4px; flex-wrap: wrap; }
+  .b-stage { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .b-bar { height: 26px; border-radius: 4px; display: flex; align-items: center; justify-content: center; padding: 0 10px; font-size: 10px; font-weight: 600; white-space: nowrap; min-width: 40px; }
+  .b-user { background: #fff3ee; color: #d97757; border: 1px solid #eaac93; }
+  .b-silent { background: #f2f7ec; color: #788c5d; border: 1px solid #c8d9b0; }
+  .b-time { font-size: 10px; color: #b0aea5; }
+  .b-sep { font-size: 13px; color: #e4e2da; margin-bottom: 14px; }
+  .b-total { font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 600; color: #d97757; margin-bottom: 14px; margin-left: 8px; }
+
+  .doc-footer { max-width: 820px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-title">Before You Design — User Flow</div>
+  <div class="doc-meta">Full pipeline · Stage 0 → Stage 6 · PRD v1.6 · April 2026 Hackathon</div>
+</div>
+
+<div class="flow">
+
+  <div class="legend">
+    <div class="leg"><div class="leg-sw" style="background:#fff3ee;border:1px solid #eaac93;"></div>User action</div>
+    <div class="leg"><div class="leg-sw" style="background:#f2f7ec;border:1px solid #c8d9b0;"></div>Silent / internal</div>
+    <div class="leg"><div class="leg-sw" style="background:#fffcfa;border:1px dashed #eaac93;"></div>Decision point</div>
+    <div class="leg"><div class="leg-sw" style="background:#f8f8f6;border:1px dashed #e4e2da;"></div>Optional / skippable</div>
+  </div>
+
+  <!-- STAGE 0 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-user">Stage 0</span>
+      <span class="stage-time">~30 sec</span>
+    </div>
+    <div class="stage-card card-user">
+      <div class="card-title">Input Collection</div>
+      <div class="card-desc">Founder pastes any content that represents their brand. URL field is primary and prominent. Paste area is optional. No login. No required fields.</div>
+      <div class="tag-row">
+        <span class="tag">Website URL</span>
+        <span class="tag">Bio</span>
+        <span class="tag">Social captions</span>
+        <span class="tag">Blog post</span>
+        <span class="tag">Podcast transcript</span>
+        <span class="tag">Anything</span>
+      </div>
+      <div class="optional" style="margin-top:10px;">
+        <div class="optional-lbl">UX principle</div>
+        Generous, not interrogative. A single URL is enough to start.
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="conn-line"></div><span class="conn-label">Submit</span><span class="conn-arrow">↓</span></div>
+
+  <!-- STAGE 1 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-silent">Stage 1</span>
+      <span class="stage-time">&lt;30 sec</span>
+    </div>
+    <div class="stage-card card-silent">
+      <div class="card-title">Silent Analysis</div>
+      <div class="card-desc">One comprehensive AI pass. User sees streaming status messages, not a spinner. Outputs structured JSON — never shown to user directly.</div>
+      <div class="stream">
+        <span class="s-step">Reading your website…</span>
+        <span class="s-arrow">→</span>
+        <span class="s-step">Finding your voice…</span>
+        <span class="s-arrow">→</span>
+        <span class="s-step">Checking for gaps…</span>
+        <span class="s-arrow">→</span>
+        <span class="s-step">Ready.</span>
+      </div>
+      <div class="two-col">
+        <div class="inner">
+          <div class="inner-lbl">Preferred: single call</div>
+          <div class="inner-title">Positioning + voice</div>
+          Niche, USP, offer structure, voice authority, market tension.
+        </div>
+        <div class="inner">
+          <div class="inner-lbl">Fallback: parallel call B</div>
+          <div class="inner-title">Coherence + gaps</div>
+          Cross-content alignment, contradictions, visual signals.
+        </div>
+      </div>
+      <div class="decision">
+        <div class="decision-lbl">Gap-flagging logic</div>
+        If evidence is missing for any field, mark it gap: true — don't fabricate, don't fail. Stage 3 asks targeted follow-ups for those gaps only.
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="conn-line"></div><span class="conn-label">Analysis complete</span><span class="conn-arrow">↓</span></div>
+
+  <!-- STAGE 2 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-user">Stage 2</span>
+      <span class="stage-time">~2 min</span>
+    </div>
+    <div class="stage-card card-user">
+      <div class="card-title">What's Changing</div>
+      <div class="card-desc">2 screens, 2 questions each. Not a brand questionnaire — these get to the heart of what's shifting. Each answerable in a sentence.</div>
+      <div class="two-col">
+        <div class="inner">
+          <div class="inner-lbl">Screen 1</div>
+          <div class="inner-title">Why a new site, why now?</div>
+          Strategic change or just aesthetic?
+        </div>
+        <div class="inner">
+          <div class="inner-lbl">Screen 2</div>
+          <div class="inner-title">What should people feel or do?</div>
+          When they land on the new site.
+        </div>
+      </div>
+      <div class="optional">
+        <div class="optional-lbl">Optional · skippable · does not block progression</div>
+        Is there anything about your current positioning you want to move away from?
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="conn-line"></div><span class="conn-label">Answers submitted</span><span class="conn-arrow">↓</span></div>
+
+  <!-- STAGE 3 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-user">Stage 3</span>
+      <span class="stage-time">~2–3 min</span>
+    </div>
+    <div class="stage-card card-user">
+      <div class="card-title">Strategic Readout</div>
+      <div class="card-desc">First thing the founder sees. Synthesized from Stage 1 + Stage 2. Designed for skimming — bold lead-ins, key insight per section, full detail on expand.</div>
+      <div class="pills">
+        <span class="pill">USP</span>
+        <span class="pill">Niche</span>
+        <span class="pill">Offer Structure</span>
+        <span class="pill">Voice &amp; Tone</span>
+        <span class="pill">Visual Direction</span>
+        <span class="pill">Origin Story</span>
+        <span class="pill">Brand Coherence</span>
+        <span class="pill">Where You're Headed</span>
+      </div>
+      <div class="decision">
+        <div class="decision-lbl">Gap fill</div>
+        If a section can't be populated, tool asks one targeted question — not a new form. Most common: About page origin story. Framed as "we need this one thing."
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="conn-line"></div><span class="conn-label">Founder reviews</span><span class="conn-arrow">↓</span></div>
+
+  <!-- STAGE 4 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-user">Stage 4</span>
+      <span class="stage-time">30 sec–2 min</span>
+    </div>
+    <div class="stage-card card-user">
+      <div class="card-title">Validate</div>
+      <div class="card-desc">Founder confirms, edits, or redirects. Nothing moves to Stage 5 until explicitly confirmed — but confirming doesn't require editing.</div>
+      <div class="paths">
+        <div class="path-lean">
+          <div class="path-lbl">Lean path</div>
+          <div class="path-title">"Looks right, continue →"</div>
+          One click. No cascade fires. ~30 sec. This is the fundamental promise.
+        </div>
+        <div class="path-depth">
+          <div class="path-lbl">Depth path</div>
+          <div class="path-title">Edit sections individually</div>
+          Cascade logic fires only on edit.
+        </div>
+      </div>
+      <div class="decision">
+        <div class="decision-lbl">Cascade logic — fires on edit only</div>
+        USP change → updates voice, offer ladder, homepage promise.<br>
+        Niche change → updates ideal client, offer positioning, visual direction.<br>
+        Origin story change → updates About↔Home alignment.<br>
+        <span style="color:#b0aea5;font-size:10px;">Fallback: flag stale sections rather than auto-propagate.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="conn-line"></div><span class="conn-label">Confirmed</span><span class="conn-arrow">↓</span></div>
+
+  <!-- STAGE 5 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-silent">Stage 5</span>
+      <span class="stage-time">Silent</span>
+    </div>
+    <div class="stage-card card-silent">
+      <div class="card-title">Content Scaffolding</div>
+      <div class="card-desc">Runs internally between Stage 4 and Stage 6. User is not involved. All scaffolding is generated, not collected.</div>
+      <div class="two-col">
+        <div class="inner">
+          <div class="inner-lbl">Pages scaffolded</div>
+          <div class="inner-title">Homepage → About → Services → Contact</div>
+          Headline, hero copy, benefit statements, CTA logic per page.
+        </div>
+        <div class="inner">
+          <div class="inner-lbl">Coherence check</div>
+          <div class="inner-title">About ↔ Home ↔ Services</div>
+          Alignment verified before output generates.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="conn-line"></div><span class="conn-label">Scaffolding complete</span><span class="conn-arrow">↓</span></div>
+
+  <!-- STAGE 6 -->
+  <div class="stage-row">
+    <div class="stage-meta">
+      <span class="stage-badge badge-user">Stage 6</span>
+      <span class="stage-time">~30–60 sec</span>
+    </div>
+    <div class="stage-card card-user">
+      <div class="card-title">Output — The Money Screen</div>
+      <div class="card-desc">One complete prompt ready to paste into Claude Design. Prominent copy-to-clipboard. Review is optional.</div>
+      <div class="inner" style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#141413;margin-bottom:3px;">Claude Design–ready prompt</div>
+          <div style="font-size:11px;color:#767370;">Positioning · niche · voice rules · visual direction · page-by-page copy direction · coherence rules</div>
+        </div>
+        <div style="background:#d97757;color:#f8f8f6;border:none;padding:8px 14px;font-size:11px;font-weight:600;border-radius:5px;white-space:nowrap;">Copy to clipboard</div>
+      </div>
+      <div class="optional" style="margin-top:8px;">
+        <div class="optional-lbl">Designer white-label CTA</div>
+        "Need help turning this into a real site? Book a call." — founder has strategy doc in hand = warm lead.
+      </div>
+    </div>
+  </div>
+
+  <!-- Time Budget -->
+  <div class="budget">
+    <div class="budget-title">Lean path time budget — under 10 min is non-negotiable</div>
+    <div class="budget-row">
+      <div class="b-stage"><div class="b-bar b-user">S0</div><div class="b-time">~30s</div></div>
+      <div class="b-sep">+</div>
+      <div class="b-stage"><div class="b-bar b-silent">S1</div><div class="b-time">&lt;30s</div></div>
+      <div class="b-sep">+</div>
+      <div class="b-stage"><div class="b-bar b-user">S2</div><div class="b-time">~2 min</div></div>
+      <div class="b-sep">+</div>
+      <div class="b-stage"><div class="b-bar b-user">S3</div><div class="b-time">2–3 min</div></div>
+      <div class="b-sep">+</div>
+      <div class="b-stage"><div class="b-bar b-user">S4</div><div class="b-time">~30s</div></div>
+      <div class="b-sep">+</div>
+      <div class="b-stage"><div class="b-bar b-silent">S5</div><div class="b-time">silent</div></div>
+      <div class="b-sep">+</div>
+      <div class="b-stage"><div class="b-bar b-user">S6</div><div class="b-time">~60s</div></div>
+      <div class="b-total">≈ 7–9 min</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>User Flow v1.0 · PRD v1.6</span>
+</div>
+
+</body>
+</html>
