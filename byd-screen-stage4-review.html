@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYD — Stage 4: Review & Confirm</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; }
+  .doc-header { max-width: 720px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+  .app { background: #f8f8f6; border-radius: 12px; overflow: hidden; border: 1px solid #e4e2da; max-width: 720px; margin: 0 auto; font-family: 'Poppins', Arial, sans-serif; }
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .app-logo { font-size: 15px; font-weight: 600; color: #141413; }
+  .app-logo span { color: #d46f4a; }
+  .prog { display: flex; align-items: center; gap: 6px; }
+  .ps { width: 24px; height: 3px; border-radius: 2px; background: #e4e2da; }
+  .ps.done { background: #d46f4a; }
+  .ps.active { background: #e8a888; }
+  .step-label { font-size: 10px; color: #767370; margin-left: 8px; }
+  .body { padding: 28px 24px; background: #ffffff; }
+  .stage-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; margin-bottom: 10px; }
+  .stage-tag::before { content: ''; width: 12px; height: 1px; background: #d46f4a; display: block; }
+  .stage-title { font-family: 'Lora', Georgia, serif; font-size: 20px; font-weight: 600; color: #141413; margin-bottom: 6px; }
+  .stage-desc { font-size: 12px; color: #767370; line-height: 1.6; margin-bottom: 20px; }
+  .global-btn { width: 100%; padding: 14px; background: #d46f4a; color: #f8f8f6; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 16px; font-family: 'Poppins', Arial, sans-serif; }
+  .or-divider { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .or-line { flex: 1; height: 1px; background: #e4e2da; }
+  .or-text { font-size: 11px; color: #b0aea5; }
+  .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #767370; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .section-label::before { content: ''; width: 10px; height: 1px; background: #d46f4a; display: block; }
+  .r-row { border-radius: 8px; margin-bottom: 8px; overflow: hidden; border: 1px solid #e4e2da; }
+  .state-correct { background: #ffffff; }
+  .state-correct.approved { background: #f2f7ec; border-color: #c8d9b0; }
+  .row-main { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; }
+  .checkbox { width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid #e4e2da; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #fff; }
+  .checkbox.checked { background: #788c5d; border-color: #788c5d; color: #fff; font-size: 11px; }
+  .row-content { flex: 1; }
+  .row-label { font-size: 9px; color: #767370; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .row-insight { font-family: 'Lora', Georgia, serif; font-size: 13px; color: #141413; line-height: 1.5; margin-bottom: 3px; }
+  .row-detail { font-size: 11px; color: #767370; line-height: 1.5; }
+  .edit-btn { font-size: 10px; color: #767370; background: transparent; border: 1px solid #e4e2da; border-radius: 4px; padding: 4px 10px; cursor: pointer; flex-shrink: 0; margin-top: 2px; font-family: 'Poppins', Arial, sans-serif; }
+  .state-contradiction { background: #fffcfa; border-color: #eaac93; }
+  .contradiction-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px 0; }
+  .flag-badge { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #d46f4a; background: #fff3ee; border: 1px solid #eaac93; border-radius: 3px; padding: 2px 8px; }
+  .contradiction-body { padding: 8px 16px 14px; }
+  .contradiction-q { font-size: 12px; color: #141413; font-weight: 500; margin: 10px 0 8px; }
+  .contradiction-input { width: 100%; background: #fff; border: 1px solid #e4e2da; border-radius: 4px; padding: 8px 12px; font-size: 12px; color: #141413; outline: none; font-family: 'Poppins', Arial, sans-serif; margin-bottom: 8px; }
+  .contradiction-input::placeholder { color: #b0aea5; }
+  .skip-link { font-size: 11px; color: #b0aea5; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+  .state-missing { background: #f8f8f6; border-color: #e4e2da; border-style: dashed; }
+  .missing-header { display: flex; align-items: center; gap: 8px; padding: 12px 16px 0; }
+  .missing-badge { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6a9bcc; background: #edf4fb; border: 1px solid #b5d4f4; border-radius: 3px; padding: 2px 8px; }
+  .missing-body { padding: 8px 16px 14px; }
+  .missing-desc { font-size: 12px; color: #767370; margin-bottom: 10px; line-height: 1.5; }
+  .missing-input { width: 100%; background: #fff; border: 1px solid #e4e2da; border-radius: 4px; padding: 8px 12px; font-size: 12px; color: #141413; outline: none; font-family: 'Poppins', Arial, sans-serif; margin-bottom: 10px; }
+  .missing-input::placeholder { color: #b0aea5; }
+  .missing-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .missing-btn { font-size: 11px; color: #767370; background: #fff; border: 1px solid #e4e2da; border-radius: 4px; padding: 6px 12px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+  .bottom-actions { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e4e2da; }
+  .btn-continue { background: #e4e2da; color: #b0aea5; border: none; padding: 11px 22px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: not-allowed; font-family: 'Poppins', Arial, sans-serif; }
+  .bottom-note { font-size: 11px; color: #b0aea5; }
+  .state-key { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .key-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #767370; }
+  .key-sw { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+  .doc-footer { max-width: 720px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+<div class="doc-header">
+  <div class="doc-title">Before You Design — Stage 4: Review &amp; Confirm</div>
+  <div class="doc-meta">v1.0 · April 2026 · Women Build AI Build-A-Thon</div>
+</div>
+<div class="app">
+  <div class="app-header">
+    <div class="app-logo">Before You <span>Design</span></div>
+    <div class="prog">
+      <div class="ps done"></div><div class="ps done"></div><div class="ps done"></div>
+      <div class="ps active"></div><div class="ps"></div><div class="ps"></div>
+      <span class="step-label">Step 4 of 6</span>
+    </div>
+  </div>
+  <div class="body">
+    <div class="stage-tag">Stage 4 — Review &amp; Confirm</div>
+    <div class="stage-title">Here's what we found. Does this sound like you?</div>
+    <div class="stage-desc">Review each section and approve, correct, or fill in gaps. Every section needs a response — or click below to approve everything at once.</div>
+    <button class="global-btn">These all look great. Go. →</button>
+    <div class="or-divider"><div class="or-line"></div><div class="or-text">or review section by section</div><div class="or-line"></div></div>
+    <div class="state-key">
+      <div class="key-item"><div class="key-sw" style="background:#f2f7ec;border:1px solid #c8d9b0;"></div>Looks right</div>
+      <div class="key-item"><div class="key-sw" style="background:#fffcfa;border:1px solid #eaac93;"></div>Contradiction flagged</div>
+      <div class="key-item"><div class="key-sw" style="background:#f8f8f6;border:1px dashed #e4e2da;"></div>Info missing</div>
+    </div>
+    <div class="section-label">Your analysis</div>
+    <div class="r-row state-correct approved">
+      <div class="row-main">
+        <div class="checkbox checked">✓</div>
+        <div class="row-content">
+          <div class="row-label">Niche</div>
+          <div class="row-insight">Female founders, service-based, $50k–$250k revenue range.</div>
+          <div class="row-detail">Clear and specific. This is a strength.</div>
+        </div>
+        <button class="edit-btn">Edit</button>
+      </div>
+    </div>
+    <div class="r-row state-correct">
+      <div class="row-main">
+        <div class="checkbox"></div>
+        <div class="row-content">
+          <div class="row-label">Voice &amp; Tone</div>
+          <div class="row-insight">Warm, direct, occasionally self-deprecating. Authority level: medium-high.</div>
+          <div class="row-detail">Consistent across your site and social. Carry this into the new build.</div>
+        </div>
+        <button class="edit-btn">Edit</button>
+      </div>
+    </div>
+    <div class="r-row state-contradiction">
+      <div class="contradiction-header">
+        <div class="row-label" style="flex:1;font-size:9px;color:#767370;letter-spacing:0.12em;text-transform:uppercase;">Offer Structure</div>
+        <div class="flag-badge">Contradiction flagged</div>
+      </div>
+      <div class="contradiction-body">
+        <div class="row-insight" style="font-family:'Lora',Georgia,serif;font-size:13px;color:#141413;line-height:1.5;">Three services with no clear entry point. Your USP promises hands-on partnership but your pricing suggests self-serve.</div>
+        <div class="contradiction-q">What's your idea to fix this?</div>
+        <input class="contradiction-input" type="text" placeholder="e.g. I'll add a starter package as a front door..." />
+        <span class="skip-link">Skip for now</span>
+      </div>
+    </div>
+    <div class="r-row state-missing">
+      <div class="missing-header">
+        <div class="row-label" style="flex:1;font-size:9px;color:#767370;letter-spacing:0.12em;text-transform:uppercase;">Origin Story</div>
+        <div class="missing-badge">Info missing</div>
+      </div>
+      <div class="missing-body">
+        <div class="missing-desc">We didn't find enough content to build your About page story. You can write it here, or let us handle it.</div>
+        <input class="missing-input" type="text" placeholder="Tell us your story in a sentence or two..." />
+        <div class="missing-btns">
+          <button class="missing-btn">Make your best guess</button>
+          <button class="missing-btn">Use a placeholder</button>
+          <button class="missing-btn">I'm not sure</button>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-actions">
+      <button class="btn-continue">Continue →</button>
+      <span class="bottom-note">Approve all sections above to continue.</span>
+    </div>
+  </div>
+</div>
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>byd-screen-stage4-review v1.0</span>
+</div>
+</body>
+</html>

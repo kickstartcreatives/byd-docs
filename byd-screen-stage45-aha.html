@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYD — Stage 4.5: Aha! Moment</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; }
+  .doc-header { max-width: 720px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+  .app { background: #f8f8f6; border-radius: 12px; overflow: hidden; border: 1px solid #e4e2da; max-width: 720px; margin: 0 auto; font-family: 'Poppins', Arial, sans-serif; }
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .app-logo { font-size: 15px; font-weight: 600; color: #141413; }
+  .app-logo span { color: #d46f4a; }
+  .prog { display: flex; align-items: center; gap: 6px; }
+  .ps { width: 24px; height: 3px; border-radius: 2px; background: #e4e2da; }
+  .ps.done { background: #d46f4a; }
+  .ps.active { background: #e8a888; }
+  .step-label { font-size: 10px; color: #767370; margin-left: 8px; }
+  .hero { padding: 36px 24px 24px; background: #ffffff; text-align: center; border-bottom: 1px solid #e4e2da; }
+  .stage-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; margin-bottom: 12px; }
+  .stage-tag::before { content: ''; width: 12px; height: 1px; background: #d46f4a; display: block; }
+  .hero-title { font-family: 'Lora', Georgia, serif; font-size: 26px; font-weight: 600; color: #141413; line-height: 1.2; margin-bottom: 8px; }
+  .hero-title em { color: #d46f4a; font-style: italic; font-weight: 400; }
+  .hero-desc { font-size: 13px; color: #767370; line-height: 1.7; max-width: 440px; margin: 0 auto; }
+  .summary { padding: 24px; background: #f8f8f6; }
+  .summary-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #767370; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .summary-label::before { content: ''; width: 10px; height: 1px; background: #d46f4a; display: block; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .s-card { background: #ffffff; border: 1px solid #e4e2da; border-radius: 8px; padding: 14px 16px; }
+  .s-card.corrected { border-color: #d46f4a; background: #fffcfa; }
+  .s-card.full-width { grid-column: 1 / -1; }
+  .s-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #767370; margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between; }
+  .s-lbl-corrected { font-size: 9px; color: #d46f4a; font-weight: 600; }
+  .s-value { font-family: 'Lora', Georgia, serif; font-size: 13px; color: #141413; line-height: 1.5; }
+  .s-correction { font-size: 11px; color: #767370; margin-top: 6px; padding-top: 6px; border-top: 1px solid #e4e2da; font-style: italic; }
+  .s-origin { background: #fff3ee; border: 1px solid #eaac93; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .s-origin-lbl { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #d46f4a; margin-bottom: 6px; }
+  .s-origin-text { font-family: 'Lora', Georgia, serif; font-size: 13px; color: #141413; line-height: 1.6; font-style: italic; }
+  .tweak-row { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding: 12px 16px; background: #fff; border: 1px solid #e4e2da; border-radius: 8px; }
+  .tweak-input { flex: 1; background: transparent; border: none; font-size: 12px; color: #141413; outline: none; font-family: 'Poppins', Arial, sans-serif; }
+  .tweak-input::placeholder { color: #b0aea5; }
+  .tweak-btn { font-size: 11px; color: #d46f4a; border: 1px solid #d46f4a; background: transparent; padding: 6px 12px; border-radius: 4px; cursor: pointer; white-space: nowrap; font-family: 'Poppins', Arial, sans-serif; }
+  .confirm-section { padding: 24px; background: #ffffff; border-top: 1px solid #e4e2da; text-align: center; }
+  .confirm-btn { background: #d46f4a; color: #f8f8f6; border: none; padding: 14px 36px; font-size: 15px; font-weight: 600; border-radius: 8px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; margin-bottom: 10px; display: inline-block; }
+  .confirm-sub { font-size: 11px; color: #b0aea5; }
+  .doc-footer { max-width: 720px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+<div class="doc-header">
+  <div class="doc-title">Before You Design — Stage 4.5: Aha! Moment</div>
+  <div class="doc-meta">v1.0 · April 2026 · Women Build AI Build-A-Thon</div>
+</div>
+<div class="app">
+  <div class="app-header">
+    <div class="app-logo">Before You <span>Design</span></div>
+    <div class="prog">
+      <div class="ps done"></div><div class="ps done"></div><div class="ps done"></div>
+      <div class="ps done"></div><div class="ps active"></div><div class="ps"></div>
+      <span class="step-label">Step 5 of 6</span>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="stage-tag">Your complete picture</div>
+    <div class="hero-title">This is your brand.<br>Does it feel <em>right?</em></div>
+    <div class="hero-desc">Everything we found — plus the corrections you just made — all in one place. Take a moment. When this feels like you, you're ready to build.</div>
+  </div>
+  <div class="summary">
+    <div class="summary-label">Your validated strategy</div>
+    <div class="summary-grid">
+      <div class="s-card">
+        <div class="s-lbl">USP</div>
+        <div class="s-value">You help service businesses get found and chosen — leading with outcomes, not process.</div>
+      </div>
+      <div class="s-card">
+        <div class="s-lbl">Niche</div>
+        <div class="s-value">Female founders, service-based, $50k–$250k revenue range.</div>
+      </div>
+      <div class="s-card corrected">
+        <div class="s-lbl">Offer Structure <span class="s-lbl-corrected">Corrected</span></div>
+        <div class="s-value">Three services with a new starter package as the front door.</div>
+        <div class="s-correction">Your fix: "I'll add a starter package as a front door."</div>
+      </div>
+      <div class="s-card">
+        <div class="s-lbl">Voice &amp; Tone</div>
+        <div class="s-value">Warm, direct, occasionally self-deprecating. Authority level: medium-high.</div>
+      </div>
+      <div class="s-card full-width">
+        <div class="s-lbl">Where You're Headed</div>
+        <div class="s-value">A site that leads with what clients actually get, with a clear entry point and an offer ladder that makes the next step obvious.</div>
+      </div>
+    </div>
+    <div class="s-origin">
+      <div class="s-origin-lbl">Origin Story — your About page foundation</div>
+      <div class="s-origin-text">"After years of watching talented founders struggle to articulate what made them different, I built Before You Design to do the thinking that websites usually skip. Strategy first. Then build."</div>
+    </div>
+    <div class="tweak-row">
+      <input class="tweak-input" type="text" placeholder="One last tweak? Type it here and we'll update your strategy..." />
+      <button class="tweak-btn">Update</button>
+    </div>
+  </div>
+  <div class="confirm-section">
+    <button class="confirm-btn">Yep, that's amazing. Build my prompt →</button>
+    <div class="confirm-sub">This generates your Claude Design–ready strategy prompt.</div>
+  </div>
+</div>
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>byd-screen-stage45-aha v1.0</span>
+</div>
+</body>
+</html>

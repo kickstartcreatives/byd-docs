@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYD — Stage 6: Output</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; }
+  .doc-header { max-width: 720px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+  .app { background: #f8f8f6; border-radius: 12px; overflow: hidden; border: 1px solid #e4e2da; max-width: 720px; margin: 0 auto; }
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .app-logo { font-size: 15px; font-weight: 600; color: #141413; }
+  .app-logo span { color: #d46f4a; }
+  .prog { display: flex; align-items: center; gap: 6px; }
+  .ps { width: 24px; height: 3px; border-radius: 2px; background: #d46f4a; }
+  .step-label { font-size: 10px; color: #767370; margin-left: 8px; }
+  .hero { padding: 32px 24px 24px; background: #ffffff; text-align: center; border-bottom: 1px solid #e4e2da; }
+  .stage-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; margin-bottom: 12px; }
+  .stage-tag::before { content: ''; width: 12px; height: 1px; background: #d46f4a; display: block; }
+  .hero-title { font-family: 'Lora', Georgia, serif; font-size: 24px; font-weight: 600; color: #141413; margin-bottom: 6px; }
+  .hero-desc { font-size: 13px; color: #767370; line-height: 1.6; }
+  .body { padding: 24px; background: #f8f8f6; }
+  .out-box { background: #ffffff; border: 1px solid #e4e2da; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+  .out-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #e4e2da; }
+  .out-lbl { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; display: flex; align-items: center; gap: 8px; }
+  .out-lbl::before { content: ''; width: 14px; height: 2px; background: #d46f4a; display: block; }
+  .copy-btn { background: #d46f4a; color: #f8f8f6; border: none; padding: 8px 16px; font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+  .out-text { padding: 16px; font-size: 11px; color: #767370; line-height: 2; font-family: 'Poppins', Arial, sans-serif; }
+  .out-text .hi { color: #141413; text-decoration: underline; text-decoration-color: #d46f4a; text-underline-offset: 3px; }
+  .out-text .section { display: block; font-weight: 600; color: #141413; margin-top: 10px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .out-text .section:first-child { margin-top: 0; }
+  .show-more { width: 100%; padding: 10px; text-align: center; font-size: 11px; color: #d46f4a; border: none; background: transparent; cursor: pointer; border-top: 1px solid #e4e2da; font-family: 'Poppins', Arial, sans-serif; }
+  .next-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .step-card { background: #fff; border: 1px solid #e4e2da; border-radius: 8px; padding: 14px 16px; }
+  .step-num { font-size: 9px; color: #d46f4a; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+  .step-title { font-size: 13px; font-weight: 600; color: #141413; margin-bottom: 3px; }
+  .step-desc { font-size: 11px; color: #767370; line-height: 1.5; }
+  .wl-lbl { font-size: 9px; color: #767370; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .wl-box { background: #fff; border: 1px solid #e4e2da; border-radius: 8px; padding: 16px 18px; display: flex; align-items: center; gap: 12px; }
+  .wl-av { width: 36px; height: 36px; border-radius: 50%; background: #e4e2da; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #141413; flex-shrink: 0; }
+  .wl-name { font-size: 13px; font-weight: 600; color: #141413; margin-bottom: 2px; }
+  .wl-tag { font-family: 'Lora', Georgia, serif; font-size: 12px; color: #767370; font-style: italic; }
+  .wl-cta { margin-left: auto; background: transparent; color: #d46f4a; border: 1px solid #d46f4a; padding: 9px 16px; font-size: 12px; font-weight: 600; border-radius: 6px; cursor: pointer; white-space: nowrap; font-family: 'Poppins', Arial, sans-serif; }
+  .start-over { text-align: center; padding: 16px; border-top: 1px solid #e4e2da; background: #fff; }
+  .start-over a { font-size: 11px; color: #b0aea5; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+  .doc-footer { max-width: 720px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+<div class="doc-header">
+  <div class="doc-title">Before You Design — Stage 6: Output</div>
+  <div class="doc-meta">v1.0 · April 2026 · Women Build AI Build-A-Thon</div>
+</div>
+<div class="app">
+  <div class="app-header">
+    <div class="app-logo">Before You <span>Design</span></div>
+    <div class="prog">
+      <div class="ps"></div><div class="ps"></div><div class="ps"></div>
+      <div class="ps"></div><div class="ps"></div><div class="ps"></div>
+      <span class="step-label">Complete</span>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="stage-tag">Stage 6 — Output</div>
+    <div class="hero-title">Your strategy is ready.</div>
+    <div class="hero-desc">Copy this prompt and paste it into Claude Design. Everything it needs to build a site that converts, not just looks good.</div>
+  </div>
+  <div class="body">
+    <div class="out-box">
+      <div class="out-header">
+        <div class="out-lbl">Claude Design–ready prompt</div>
+        <button class="copy-btn">Copy to clipboard</button>
+      </div>
+      <div class="out-text">
+        <span class="section">Business</span>
+        Build a website for <span class="hi">a service-based business</span> that positions them as the <span class="hi">validated strategic choice</span> for female founders earning $50k–$250k.
+        <span class="section">Ideal Client</span>
+        Female founders of service businesses who are ready to grow but feel invisible online. Core pain: they're excellent at what they do but their website doesn't show it.
+        <span class="section">Voice &amp; Tone</span>
+        Warm, direct, occasionally self-deprecating. <span class="hi">Lead with outcomes, not process.</span> Never corporate. Never fluffy.
+        <span class="section">Visual Direction</span>
+        Clean, editorial, warm. Serif headlines paired with clean sans body. Earthy neutrals with a single warm accent. Photography: real people, real moments, no stock smiles.
+      </div>
+      <button class="show-more">Show full prompt ↓</button>
+    </div>
+    <div class="next-steps">
+      <div class="step-card">
+        <div class="step-num">Next step 01</div>
+        <div class="step-title">Open Claude Design</div>
+        <div class="step-desc">Paste your prompt and let it generate your site structure.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Next step 02</div>
+        <div class="step-title">Review the output</div>
+        <div class="step-desc">Check that the strategic picture carried through into the design.</div>
+      </div>
+    </div>
+    <div class="wl-lbl">Want help building this?</div>
+    <div class="wl-box">
+      <div class="wl-av">DW</div>
+      <div>
+        <div class="wl-name">Diane Whiddon — Brand Strategist</div>
+        <div class="wl-tag">Ready to turn this strategy into a real site? Let's talk.</div>
+      </div>
+      <button class="wl-cta">Book a call →</button>
+    </div>
+  </div>
+  <div class="start-over"><a>Start over with a different site</a></div>
+</div>
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>byd-screen-stage6-output v1.0</span>
+</div>
+</body>
+</html>

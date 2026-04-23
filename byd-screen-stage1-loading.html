@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYD — Stage 1: Loading</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; }
+  .doc-header { max-width: 600px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+  .app { background: #f8f8f6; border-radius: 12px; overflow: hidden; border: 1px solid #e4e2da; max-width: 600px; margin: 0 auto; font-family: 'Poppins', Arial, sans-serif; }
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .app-logo { font-size: 15px; font-weight: 600; color: #141413; }
+  .app-logo span { color: #d46f4a; }
+  .prog { display: flex; align-items: center; gap: 6px; }
+  .ps { width: 24px; height: 3px; border-radius: 2px; background: #e4e2da; }
+  .ps.done { background: #d46f4a; }
+  .ps.active { background: #e8a888; }
+  .step-label { font-size: 10px; color: #767370; margin-left: 8px; }
+  .body { padding: 48px 32px; background: #ffffff; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .stage-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; margin-bottom: 16px; }
+  .stage-tag::before { content: ''; width: 12px; height: 1px; background: #d46f4a; display: block; }
+  .stage-title { font-family: 'Lora', Georgia, serif; font-size: 22px; font-weight: 600; color: #141413; margin-bottom: 8px; }
+  .stage-desc { font-size: 13px; color: #767370; margin-bottom: 36px; }
+  .stream-wrap { width: 100%; max-width: 480px; background: #f8f8f6; border: 1px solid #e4e2da; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; }
+  .stream-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e4e2da; }
+  .stream-row:last-child { border-bottom: none; }
+  .stream-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; }
+  .icon-done { background: #f2f7ec; color: #788c5d; }
+  .icon-active { background: #fff3ee; border: 1.5px solid #d46f4a; display: flex; align-items: center; justify-content: center; }
+  .icon-active-dot { width: 6px; height: 6px; border-radius: 50%; background: #d46f4a; }
+  .icon-waiting { background: #f8f8f6; border: 1px solid #e4e2da; }
+  .stream-text { font-size: 12px; text-align: left; }
+  .text-done { color: #788c5d; }
+  .text-active { color: #141413; font-weight: 500; }
+  .text-waiting { color: #b0aea5; }
+  .hint { font-size: 11px; color: #767370; }
+  .doc-footer { max-width: 600px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+<div class="doc-header">
+  <div class="doc-title">Before You Design — Stage 1: Loading Screen</div>
+  <div class="doc-meta">v1.0 · April 2026 · Women Build AI Build-A-Thon</div>
+</div>
+<div class="app">
+  <div class="app-header">
+    <div class="app-logo">Before You <span>Design</span></div>
+    <div class="prog">
+      <div class="ps done"></div>
+      <div class="ps active"></div>
+      <div class="ps"></div>
+      <div class="ps"></div>
+      <div class="ps"></div>
+      <div class="ps"></div>
+      <span class="step-label">Step 2 of 6</span>
+    </div>
+  </div>
+  <div class="body">
+    <div class="stage-tag">Stage 1 — Analysis</div>
+    <div class="stage-title">Reading your presence...</div>
+    <div class="stage-desc">We're analyzing everything you shared. This takes about 30 seconds.</div>
+    <div class="stream-wrap">
+      <div class="stream-row">
+        <div class="stream-icon icon-done">✓</div>
+        <span class="stream-text text-done">Reading your website</span>
+      </div>
+      <div class="stream-row">
+        <div class="stream-icon icon-active"><div class="icon-active-dot"></div></div>
+        <span class="stream-text text-active">Finding your voice and positioning...</span>
+      </div>
+      <div class="stream-row">
+        <div class="stream-icon icon-waiting"></div>
+        <span class="stream-text text-waiting">Checking for contradictions</span>
+      </div>
+      <div class="stream-row">
+        <div class="stream-icon icon-waiting"></div>
+        <span class="stream-text text-waiting">Identifying gaps</span>
+      </div>
+    </div>
+    <div class="hint">Hang tight — we'll show you everything we found.</div>
+  </div>
+</div>
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>byd-screen-stage1-loading v1.0</span>
+</div>
+</body>
+</html>
