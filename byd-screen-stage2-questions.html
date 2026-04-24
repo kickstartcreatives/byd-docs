@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYD — Stage 2: What's Changing</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0efeb; padding: 32px; font-family: 'Poppins', Arial, sans-serif; }
+  .doc-header { max-width: 640px; margin: 0 auto 24px; display: flex; justify-content: space-between; align-items: baseline; }
+  .doc-title { font-size: 13px; font-weight: 600; color: #141413; }
+  .doc-meta { font-size: 11px; color: #767370; }
+
+  .app { background: #f8f8f6; border-radius: 12px; overflow: hidden; border: 1px solid #e4e2da; max-width: 640px; margin: 0 auto; font-family: 'Poppins', Arial, sans-serif; }
+
+  .app-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; border-bottom: 1px solid #e4e2da; background: #f8f8f6; }
+  .app-logo { font-size: 15px; font-weight: 600; color: #141413; }
+  .app-logo span { color: #d46f4a; }
+  .prog { display: flex; align-items: center; gap: 6px; }
+  .ps { width: 24px; height: 3px; border-radius: 2px; background: #e4e2da; }
+  .ps.done { background: #d46f4a; }
+  .ps.active { background: #e8a888; }
+  .step-label { font-size: 10px; color: #767370; margin-left: 8px; }
+
+  .body { padding: 32px 28px 24px; background: #ffffff; }
+
+  .stage-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #767370; margin-bottom: 12px; }
+  .stage-tag::before { content: ''; width: 12px; height: 1px; background: #d46f4a; display: block; }
+
+  .stage-title { font-family: 'Lora', Georgia, serif; font-size: 20px; font-weight: 600; color: #141413; margin-bottom: 6px; line-height: 1.2; }
+  .stage-desc { font-size: 12px; color: #767370; line-height: 1.6; margin-bottom: 28px; }
+
+  .q-block { margin-bottom: 22px; }
+
+  .q-label { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 500; color: #141413; margin-bottom: 6px; line-height: 1.4; }
+  .q-label .required { color: #c0392b; font-size: 13px; line-height: 1; }
+  .q-label .optional-tag { font-size: 10px; color: #b0aea5; font-weight: 400; margin-left: 4px; letter-spacing: 0.04em; }
+
+  .q-textarea {
+    width: 100%;
+    background: #f8f8f6;
+    border: 1px solid #e4e2da;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 12px;
+    color: #141413;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+    height: calc(2 * 1.6 * 12px + 20px);
+    transition: border-color 0.15s;
+  }
+  .q-textarea:focus { border-color: #d46f4a; }
+  .q-textarea::placeholder { color: #b0aea5; font-size: 11px; line-height: 1.55; }
+  .q-textarea.required-field:focus { border-color: #d46f4a; }
+
+  .q-hint { font-size: 10px; color: #b0aea5; margin-top: 5px; line-height: 1.5; }
+
+  .divider { height: 1px; background: #e4e2da; margin: 4px 0 22px; }
+
+  .footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 28px; border-top: 1px solid #e4e2da; background: #f8f8f6; }
+  .footer-note { font-size: 11px; color: #b0aea5; }
+  .footer-note span { color: #c0392b; }
+  .next-btn { background: #d46f4a; color: #f8f8f6; border: none; padding: 11px 28px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; font-family: 'Poppins', Arial, sans-serif; }
+  .next-btn.disabled { background: #e4e2da; color: #b0aea5; cursor: not-allowed; }
+
+  .doc-footer { max-width: 640px; margin: 16px auto 0; display: flex; justify-content: space-between; font-size: 10px; color: #b0aea5; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-title">Before You Design — Stage 2: What's Changing</div>
+  <div class="doc-meta">v2.0 · April 2026 · Women Build AI Build-A-Thon</div>
+</div>
+
+<div class="app">
+
+  <div class="app-header">
+    <div class="app-logo">Before You <span>Design</span></div>
+    <div class="prog">
+      <div class="ps done"></div>
+      <div class="ps done"></div>
+      <div class="ps active"></div>
+      <div class="ps"></div>
+      <div class="ps"></div>
+      <div class="ps"></div>
+      <span class="step-label">Step 3 of 6</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <div class="stage-tag">Stage 2 — What's changing</div>
+    <div class="stage-title">Tell us what's shifting</div>
+    <div class="stage-desc">Answer the first question and you're good to go. The other two are optional — answer them if they're useful, skip them if not.</div>
+
+    <!-- Q1 — Required -->
+    <div class="q-block">
+      <div class="q-label">
+        <span class="required">*</span>
+        Why a new site? Why now?
+      </div>
+      <textarea
+        class="q-textarea required-field"
+        placeholder="e.g. I've pivoted from done-for-you to group coaching and my site still sells the old thing — or — Honestly it just looks dated. But also I'm not sure my messaging lands anymore."
+      ></textarea>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Q2 — Optional -->
+    <div class="q-block">
+      <div class="q-label">
+        How do you want your new site to feel?
+        <span class="optional-tag">optional</span>
+      </div>
+      <textarea
+        class="q-textarea"
+        placeholder="e.g. warm, friendly, open, peaceful, professional, polished, lux, clean, inviting"
+      ></textarea>
+    </div>
+
+    <!-- Q3 — Optional -->
+    <div class="q-block">
+      <div class="q-label">
+        Is there anything about your current positioning you want to move away from?
+        <span class="optional-tag">optional</span>
+      </div>
+      <textarea
+        class="q-textarea"
+        placeholder="e.g. I don't want to be the 'affordable option' anymore — or — I'm tired of the hustle-y, sales-heavy voice. I want something quieter."
+      ></textarea>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-note"><span>*</span> Required to continue</div>
+    <button class="next-btn">Next →</button>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  <span>Before You Design · Women Build AI Build-A-Thon · April 2026</span>
+  <span>byd-screen-stage2-questions v2.0</span>
+</div>
+
+</body>
+</html>
